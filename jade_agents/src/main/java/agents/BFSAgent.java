@@ -20,7 +20,7 @@ public class BFSAgent extends Agent {
         MazeProvider provider = MazeProvider.getInstance();
         maze = provider.getMaze();
         for(int i=0; i < 100000; i++);
-        System.out.println(provider.getRawMaze());
+        System.out.println(provider.getSymbolicMaze());
         startPoint = new Point(0, 1);
         endPoint = new Point(provider.getDimension()-1, provider.getDimension()-2);
         addBehaviour(new BFSBehaviour());

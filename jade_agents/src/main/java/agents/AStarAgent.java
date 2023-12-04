@@ -1,5 +1,6 @@
 package agents;
 
+import Utils.MazeProvider;
 import Utils.Point;
 import jade.core.Agent;
 import jade.core.behaviours.OneShotBehaviour;
@@ -13,15 +14,12 @@ public class AStarAgent extends Agent {
 
     protected void setup() {
         System.out.println("Hello from AStarAgent !");
-        // Initialize the maze, start, and end points
-        maze = new int[][]{
-                {0, 1, 0, 0},
-                {0, 0, 1, 0},
-                {1, 0, 1, 0},
-                {0, 0, 0, 0}
-        };
-        startPoint = new Point(0, 0);
-        endPoint = new Point(3, 3);
+        MazeProvider provider = MazeProvider.getInstance();
+        maze = provider.getMaze();
+        for(int i=0; i < 100000; i++);
+        System.out.println(provider.getSymbolicMaze());
+        startPoint = new Point(0, 1);
+        endPoint = new Point(provider.getDimension()-1, provider.getDimension()-2);
 
         addBehaviour(new AStarBehaviour());
     }

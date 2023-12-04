@@ -2,6 +2,11 @@ package Utils;
 
 import java.util.Arrays;
 import java.util.Random;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MazeProvider {
     private static MazeProvider instance = null;
@@ -9,13 +14,36 @@ public class MazeProvider {
     private int[][] maze;
     private int dimension;
 
+    private final String FILE_PATH = "/home/kenzu/3ING/Project_IAD/fastAPI_backend/maze.csv";
+
     private MazeProvider() {
-        Random random = new Random();
-        this.dimension = 8;
-        Point start = new Point(0, 1);
-        Point end = new Point(dimension-1, dimension-2);
-        this.maze = MazeGenerator.generateMaze(8, 8, start, end);
+        try {
+            this.maze = readMazeFromFile(this.FILE_PATH);
+            this.dimension = maze.length;
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception or throw it further
+        }
     }
+
+
+    private int[][] readMazeFromFile(String filePath) throws IOException {
+        List<int[]> rows = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                int[] row = new int[values.length];
+                for (int i = 0; i < values.length; i++) {
+                    row[i] = Integer.parseInt(values[i].trim());
+                }
+                rows.add(row);
+            }
+        }
+
+        return rows.toArray(new int[0][]);
+    }
+
 
     public static MazeProvider getInstance() {
         if (instance == null) {
@@ -23,6 +51,7 @@ public class MazeProvider {
         }
         return instance;
     }
+
 
     public String getRawMaze() {
         StringBuilder sb = new StringBuilder();
