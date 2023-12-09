@@ -1,0 +1,28 @@
+.agent-image {
+  width: 30px;  /* Adjust size as needed */
+  height: 30px; /* Adjust size as needed */
+  border-radius: 50%; /* Makes the image round */
+  position: absolute; /* Positioning to place images over the grid */
+  transition: top 1s, left 1s; /* Smooth transition for movement */
+}
+
+.maze-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.maze-row {
+  display: flex;
+}
+
+.cell {
+  width: 40px;  /* Increased cell size */
+  height: 40px; /* Increased cell size */
+  border: 1px solid black;
+  transition: background-color 0.5s; /* Smooth transition for color change */
+}
+
+.cell.obstacle {
+  background-color: black;
+}
