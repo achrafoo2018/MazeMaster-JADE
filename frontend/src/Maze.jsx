@@ -47,7 +47,7 @@ const Maze = () => {
                 [3, 6],
                 [7, 7]
             ]
-            , image: hamma, color: 'blue'
+            , image: hamma, color: 'blue', msgs: ['aeae', 'ezazeaz']
         },
         dfs: {
             path: [
@@ -69,7 +69,7 @@ const Maze = () => {
                 [6, 6],
                 [7, 6]
             ]
-            , image: chroufa, color: 'green'
+            , image: chroufa, color: 'green', msgs: ['aeae', 'ezazeaz']
         },
         astar: {
             path: [
@@ -133,7 +133,7 @@ const Maze = () => {
                 [0, 0],
                 [7, 6]
             ]
-            , image: slouma, color: 'red'
+            , image: slouma, color: 'red', msgs: ['aeae', 'ezazeaz']
         }
     };
     const [agentPositions, setAgentPositions] = useState({
@@ -173,7 +173,20 @@ const Maze = () => {
             ...prevPositions,
             [agent]: [row, col]
         }));
+    
+        // Get the step number for the agent
+        const step = agentPaths[agent].path.findIndex(position => position[0] === row && position[1] === col);
+    
+        // Log the agent's information and associated message
+        console.log(`${agent.toUpperCase()} - Position: [${row}, ${col}]`);
+        if (step < agentPaths[agent].msgs.length) {
+            console.log(`Message: ${agentPaths[agent].msgs[step]}`);
+        } else {
+            console.log("No more messages.");
+        }
+        console.log("-------");
     };
+    
 
     const updateCellColor = (row, col, color) => {
         const key = `${row}-${col}`;
