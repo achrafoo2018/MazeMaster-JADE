@@ -11,12 +11,15 @@ public class CoordinatorAgent extends Agent {
         addBehaviour(new OneShotBehaviour(this) {
             public void action() {
                 // Send a start signal to all agents
-                ACLMessage startSignal = new ACLMessage(ACLMessage.INFORM);
-                startSignal.setContent("Start");
-                startSignal.addReceiver(new AID("BFSAgent", AID.ISLOCALNAME));
-                startSignal.addReceiver(new AID("DFSAgent", AID.ISLOCALNAME));
-                // startSignal.addReceiver(new AID("AStarAgent", AID.ISLOCALNAME));
-                myAgent.send(startSignal);
+                for(int i=0; i < 10; i++) { // bch yousel el msg ;')
+                    ACLMessage startSignal = new ACLMessage(ACLMessage.INFORM);
+                    startSignal.addReceiver(new AID("BFSAgent", AID.ISLOCALNAME));
+                    startSignal.addReceiver(new AID("DFSAgent", AID.ISLOCALNAME));
+                    startSignal.addReceiver(new AID("AStarAgent", AID.ISLOCALNAME));
+                    startSignal.setContent("Start");
+
+                    send(startSignal);
+                }
             }
 
             @Override

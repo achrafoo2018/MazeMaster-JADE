@@ -2,9 +2,16 @@ package agents;
 
 import Utils.MazeProvider;
 import Utils.Point;
+import jade.core.AID;
 import jade.core.Agent;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
+import jade.lang.acl.ACLMessage;
+
 import java.util.*;
+
+import static java.lang.System.console;
+import static java.lang.System.exit;
 
 public class DFSAgent extends Agent {
 
@@ -16,15 +23,61 @@ public class DFSAgent extends Agent {
     private Set<Point> visited = new HashSet<>();
 
     protected void setup() {
-        System.out.println("Hello from DFSAgent !");
-        MazeProvider provider = MazeProvider.getInstance();
+        Object[] args = getArguments();
+        if (args != null && args.length == 0){
+            System.out.println("No file path provided.");
+            return;
+        }
+        String filePath = (String) args[0];
+        // Use the filePath to initialize the MazeProvider
+        MazeProvider provider = MazeProvider.getInstance(filePath);
         maze = provider.getMaze();
-        for(int i=0; i < 100000; i++);
-        System.out.println(provider.getSymbolicMaze());
         startPoint = new Point(0, 1);
         endPoint = new Point(provider.getDimension()-1, provider.getDimension()-2);
+        String myName = getLocalName();
+        System.out.println("My name is: " + myName);
+        addBehaviour(new CyclicBehaviour(this) {
+            public void action() {
+                ACLMessage msg = receive();
+                if (msg != null && "Start".equals(msg.getContent())) {
+                    removeBehaviour(this); // Remove this waiting behavior
+                    addBehaviour(new DFSBehaviour()); // Add main behavior
+                } else {
+                    block();
+                }
+            }
+        });
+        addBehaviour(new CyclicBehaviour(this) {
+            public void action() {
+                receiveMessagesAndUpdateMaze();
+            }
+        });
+    }
 
-        addBehaviour(new DFSBehaviour());
+    @Override
+    protected void takeDown() {
+        exit(0);
+    }
+
+    // Method to send dead-end point information
+    private void sendDeadEndPoint(Point deadEndPoint) {
+        System.out.println("Sending end point !! ");
+        ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
+        msg.addReceiver(new AID("BFSAgent", AID.ISLOCALNAME));
+        msg.addReceiver(new AID("AStarAgent", AID.ISLOCALNAME));
+        msg.setContent("DeadEndPoint: " + deadEndPoint.x + "," + deadEndPoint.y);
+
+        send(msg);
+    }
+
+    private void receiveMessagesAndUpdateMaze() {
+        ACLMessage msg = receive();
+        if (msg != null && msg.getContent().startsWith("DeadEndPoint:")) {
+            String[] parts = msg.getContent().split(":")[1].split(",");
+            int x = Integer.parseInt(parts[0].trim());
+            int y = Integer.parseInt(parts[1].trim());
+            maze[x][y] = 'X'; // Marking the dead end point
+        }
     }
 
     private class DFSBehaviour extends OneShotBehaviour {
@@ -32,17 +85,19 @@ public class DFSAgent extends Agent {
         public void action() {
             dfs(startPoint);
             if (pathFound) {
-                System.out.println("Path found!");
+                System.out.print("1;"); // path found
                 for (Point p : path) {
-                    System.out.println(p);
+                    System.out.print(p);
+                    System.out.print(";");
                 }
             } else {
-                System.out.println("No path found.");
+                System.out.println("0;"); // path not found
             }
+            myAgent.doDelete();
         }
 
         private void dfs(Point current) {
-            if (pathFound || visited.contains(current)) {
+            if (visited.contains(current)) {
                 return;
             }
 
@@ -51,17 +106,24 @@ public class DFSAgent extends Agent {
 
             if (current.equals(endPoint)) {
                 pathFound = true;
-                return;
-            }
+            } else {
+                boolean deadEnd = true;
+                for (Point neighbor : getNeighbors(current)) {
+                    if (!visited.contains(neighbor)) {
+                        dfs(neighbor);
+                        if (pathFound) {
+                            deadEnd = false;
+                            break;
+                        }
+                    }
+                }
 
-            for (Point neighbor : getNeighbors(current)) {
-                dfs(neighbor);
-            }
-
-            if (!pathFound) {
-                path.remove(path.size() - 1); // Backtrack if not found
+                if (deadEnd) {
+                    sendDeadEndPoint(current); // Send message when backtracking from a dead end
+                }
             }
         }
+
 
         private List<Point> getNeighbors(Point p) {
             List<Point> neighbors = new ArrayList<>();

@@ -14,11 +14,9 @@ public class MazeProvider {
     private int[][] maze;
     private int dimension;
 
-    private final String FILE_PATH = "/home/kenzu/3ING/Project_IAD/fastAPI_backend/maze.csv";
-
-    private MazeProvider() {
+    private MazeProvider(String filepath) {
         try {
-            this.maze = readMazeFromFile(this.FILE_PATH);
+            this.maze = readMazeFromFile(filepath);
             this.dimension = maze.length;
         } catch (IOException e) {
             e.printStackTrace();
@@ -45,9 +43,9 @@ public class MazeProvider {
     }
 
 
-    public static MazeProvider getInstance() {
+    public static MazeProvider getInstance(String filepath) {
         if (instance == null) {
-            instance = new MazeProvider();
+            instance = new MazeProvider(filepath);
         }
         return instance;
     }
