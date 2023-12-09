@@ -17,12 +17,11 @@
 }
 
 .cell {
-  width: 40px;  /* Increased cell size */
-  height: 40px; /* Increased cell size */
+  width: 60px;  /* Increase the cell size from 40px to 60px */
+  height: 60px; /* Increase the cell size from 40px to 60px */
   border: 1px solid black;
   transition: background-color 0.5s; /* Smooth transition for color change */
 }
-
 .cell.obstacle {
   background-color: black;
 }

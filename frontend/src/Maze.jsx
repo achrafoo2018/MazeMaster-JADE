@@ -173,10 +173,10 @@ const Maze = () => {
             ...prevPositions,
             [agent]: [row, col]
         }));
-    
+
         // Get the step number for the agent
         const step = agentPaths[agent].path.findIndex(position => position[0] === row && position[1] === col);
-    
+
         // Log the agent's information and associated message
         console.log(`${agent.toUpperCase()} - Position: [${row}, ${col}]`);
         if (step < agentPaths[agent].msgs.length) {
@@ -186,7 +186,7 @@ const Maze = () => {
         }
         console.log("-------");
     };
-    
+
 
     const updateCellColor = (row, col, color) => {
         const key = `${row}-${col}`;
@@ -224,15 +224,41 @@ const Maze = () => {
             </div>
         ));
     };
-
     const renderAgents = () => {
-        const offset = 10; // Adjust based on the number of agents
+        // Function to calculate the offset based on the number of agents in the same cell
+        const calculateOffset = (row, col, index, maxAgents) => {
+            const offset = 5; // Base offset value in pixels
+            const angle = (2 * Math.PI / maxAgents) * index; // Angle to position each agent
+            return {
+                x: Math.cos(angle) * offset,
+                y: Math.sin(angle) * offset
+            };
+        };
+    
+        // Find the maximum number of agents in any single cell
+        const maxAgentsPerCell = Object.values(agentPositions).reduce((acc, position) => {
+            const key = `${position[0]}-${position[1]}`;
+            acc[key] = (acc[key] || 0) + 1;
+            return acc;
+        }, {});
+    
         return Object.keys(agentPaths).map((agent, index) => {
             const [row, col] = agentPositions[agent];
+            const cellSize = 60; // Cell size (width and height)
+    
+            // Determine the number of agents in the same cell
+            const agentsInCell = maxAgentsPerCell[`${row}-${col}`];
+            
+            // Calculate offset for the current agent
+            const { x: offsetX, y: offsetY } = calculateOffset(row, col, index, agentsInCell);
+    
+            // Centering the agent in the cell with the offset
             const style = {
-                top: `${row * 40 + offset * index}px`,  // Assuming each cell is 40px
-                left: `${col * 40}px`  // Adjust based on actual cell size
+                top: `calc(${row * cellSize + cellSize / 2}px + ${offsetY}px)`,
+                left: `calc(${col * cellSize + cellSize / 2}px + ${offsetX}px)`,
+                transform: 'translate(-50%, -50%)' // Adjusts the centering considering the offset
             };
+    
             return (
                 <img key={agent}
                     src={agentPaths[agent].image}
@@ -242,7 +268,9 @@ const Maze = () => {
             );
         });
     };
-
+    
+    
+    
     return (
         <div className="maze-container">
             {renderMaze()}
