@@ -136,7 +136,6 @@ const Maze = () => {
             , image: slouma, color: 'red'
         }
     };
-
     const [agentPositions, setAgentPositions] = useState({
         bfs: [0, 0],
         dfs: [0, 0],
@@ -187,7 +186,7 @@ const Maze = () => {
 
         const cell = document.querySelector(`.cell[data-row='${row}'][data-col='${col}']`);
         if (cell) {
-            cell.style.backgroundColor = getCombinedColor(cellColorRef.current[key]);
+            cell.style.background = getCombinedColor(cellColorRef.current[key]);
         }
     };
 
@@ -240,3 +239,4 @@ const Maze = () => {
 };
 
 export default Maze;
+
