@@ -8,6 +8,7 @@ import './maze.css';
 
 const Maze = ({ speed, addMsg,
     gameStarted,
+    resetMsgs,
     setGameStarted }) => {
     const WIDTH = 40;
     const HEIGHT = 40;
@@ -559,267 +560,8 @@ const Maze = ({ speed, addMsg,
                 "Can I go to (1, 0) ?",
                 "Can I go to (0, 1) ?",
                 "Can I go to (2, 0) ?",
-                "Can I go to (0, 0) ?",
-                "Can I go to (0, 2) ?",
-                "Can I go to (0, 0) ?",
-                "Can I go to (3, 0) ?",
-                "Can I go to (1, 0) ?",
-                "Can I go to (1, 2) ?",
-                "Can I go to (0, 1) ?",
-                "Can I go to (4, 0) ?",
-                "Can I go to (2, 0) ?",
-                "Can I go to (3, 1) ?",
-                "Can I go to (0, 2) ?",
-                "Can I go to (1, 3) ?",
-                "Can I go to (5, 0) ?",
-                "Can I go to (3, 0) ?",
-                "Can I go to (3, 2) ?",
-                "Can I go to (3, 0) ?",
-                "Can I go to (1, 4) ?",
-                "Can I go to (1, 2) ?",
-                "Can I go to (6, 0) ?",
-                "Can I go to (4, 0) ?",
-                "Can I go to (4, 2) ?",
-                "Can I go to (3, 1) ?",
-                "Can I go to (2, 4) ?",
-                "Can I go to (1, 3) ?",
-                "Can I go to (3, 2) ?",
-                "Can I go to (4, 3) ?",
-                "Can I go to (1, 4) ?",
-                "Can I go to (2, 5) ?",
-                "Can I go to (5, 3) ?",
-                "Can I go to (4, 4) ?",
-                "Can I go to (4, 2) ?",
-                "Can I go to (2, 6) ?",
-                "Can I go to (2, 4) ?",
-                "Can I go to (4, 5) ?",
-                "Can I go to (4, 3) ?",
-                "Can I go to (2, 7) ?",
-                "Can I go to (2, 5) ?",
-                "Can I go to (4, 6) ?",
-                "Can I go to (4, 4) ?",
-                "Can I go to (2, 8) ?",
-                "Can I go to (2, 6) ?",
-                "Can I go to (5, 6) ?",
-                "Can I go to (4, 7) ?",
-                "Can I go to (4, 5) ?",
-                "Can I go to (1, 8) ?",
-                "Can I go to (2, 7) ?",
-                "Can I go to (6, 6) ?",
-                "Can I go to (4, 6) ?",
-                "Can I go to (4, 6) ?",
-                "Can I go to (2, 8) ?",
-                "Can I go to (0, 8) ?",
-                "Can I go to (7, 6) ?",
-                "Can I go to (5, 6) ?",
-                "Can I go to (6, 5) ?",
-                "Can I go to (1, 8) ?",
-                "Can I go to (0, 9) ?",
-                "Can I go to (0, 7) ?",
-                "Can I go to (6, 6) ?",
-                "Can I go to (7, 7) ?",
-                "Can I go to (6, 6) ?",
-                "Can I go to (6, 4) ?",
-                "Can I go to (0, 10) ?",
-                "Can I go to (0, 8) ?",
-                "Can I go to (0, 8) ?",
-                "Can I go to (0, 6) ?",
-                "Can I go to (7, 8) ?",
-                "Can I go to (7, 6) ?",
-                "Can I go to (7, 4) ?",
-                "Can I go to (6, 5) ?",
-                "Can I go to (0, 11) ?",
-                "Can I go to (0, 9) ?",
-                "Can I go to (0, 7) ?",
-                "Can I go to (0, 5) ?",
-                "Can I go to (8, 8) ?",
-                "Can I go to (7, 7) ?",
-                "Can I go to (6, 4) ?",
-                "Can I go to (7, 3) ?",
-                "Can I go to (0, 12) ?",
-                "Can I go to (0, 10) ?",
-                "Can I go to (0, 6) ?",
-                "Can I go to (8, 3) ?",
-                "Can I go to (7, 4) ?",
-                "Can I go to (0, 13) ?",
-                "Can I go to (0, 11) ?",
-                "Can I go to (9, 3) ?",
-                "Can I go to (7, 3) ?",
-                "Can I go to (8, 2) ?",
-                "Can I go to (0, 14) ?",
-                "Can I go to (0, 12) ?",
-                "Can I go to (8, 3) ?",
-                "Can I go to (8, 1) ?",
-                "Can I go to (0, 15) ?",
-                "Can I go to (0, 13) ?",
-                "Can I go to (9, 1) ?",
-                "Can I go to (8, 2) ?",
-                "Can I go to (1, 15) ?",
-                "Can I go to (0, 14) ?",
-                "Can I go to (8, 1) ?",
-                "Can I go to (9, 0) ?",
-                "Can I go to (2, 15) ?",
-                "Can I go to (0, 15) ?",
-                "Can I go to (10, 0) ?",
-                "Can I go to (9, 1) ?",
-                "Can I go to (3, 15) ?",
-                "Can I go to (1, 15) ?",
-                "Can I go to (11, 0) ?",
-                "Can I go to (9, 0) ?",
-                "Can I go to (4, 15) ?",
-                "Can I go to (2, 15) ?",
-                "Can I go to (3, 16) ?",
-                "Can I go to (12, 0) ?",
-                "Can I go to (10, 0) ?",
-                "Can I go to (3, 15) ?",
-                "Can I go to (4, 14) ?",
-                "Can I go to (3, 15) ?",
-                "Can I go to (13, 0) ?",
-                "Can I go to (11, 0) ?",
-                "Can I go to (4, 15) ?",
-                "Can I go to (4, 13) ?",
-                "Can I go to (14, 0) ?",
-                "Can I go to (12, 0) ?",
-                "Can I go to (4, 14) ?",
-                "Can I go to (4, 12) ?",
-                "Can I go to (15, 0) ?",
-                "Can I go to (13, 0) ?",
-                "Can I go to (3, 12) ?",
-                "Can I go to (4, 13) ?",
-                "Can I go to (16, 0) ?",
-                "Can I go to (14, 0) ?",
-                "Can I go to (15, 1) ?",
-                "Can I go to (4, 12) ?",
-                "Can I go to (2, 12) ?",
-                "Can I go to (15, 2) ?",
-                "Can I go to (15, 0) ?",
-                "Can I go to (3, 12) ?",
-                "Can I go to (2, 13) ?",
-                "Can I go to (2, 11) ?",
-                "Can I go to (16, 2) ?",
-                "Can I go to (14, 2) ?",
-                "Can I go to (15, 1) ?",
-                "Can I go to (2, 12) ?",
-                "Can I go to (2, 12) ?",
-                "Can I go to (2, 10) ?",
-                "Can I go to (17, 2) ?",
-                "Can I go to (15, 2) ?",
-                "Can I go to (15, 2) ?",
-                "Can I go to (13, 2) ?",
-                "Can I go to (3, 10) ?",
-                "Can I go to (2, 11) ?",
-                "Can I go to (16, 2) ?",
-                "Can I go to (17, 3) ?",
-                "Can I go to (17, 1) ?",
-                "Can I go to (14, 2) ?",
-                "Can I go to (12, 2) ?",
-                "Can I go to (2, 10) ?",
-                "Can I go to (3, 9) ?",
-                "Can I go to (18, 3) ?",
-                "Can I go to (17, 2) ?",
-                "Can I go to (18, 1) ?",
-                "Can I go to (17, 2) ?",
-                "Can I go to (13, 2) ?",
-                "Can I go to (11, 2) ?",
-                "Can I go to (4, 9) ?",
-                "Can I go to (3, 10) ?",
-                "Can I go to (19, 3) ?",
-                "Can I go to (17, 3) ?",
-                "Can I go to (18, 4) ?",
-                "Can I go to (17, 1) ?",
-                "Can I go to (18, 0) ?",
-                "Can I go to (12, 2) ?",
-                "Can I go to (10, 2) ?",
-                "Can I go to (11, 3) ?",
-                "Can I go to (5, 9) ?",
-                "Can I go to (3, 9) ?",
-                "Can I go to (18, 5) ?",
-                "Can I go to (18, 3) ?",
-                "Can I go to (19, 0) ?",
-                "Can I go to (18, 1) ?",
-                "Can I go to (11, 2) ?",
-                "Can I go to (11, 4) ?",
-                "Can I go to (11, 2) ?",
-                "Can I go to (6, 9) ?",
-                "Can I go to (4, 9) ?",
-                "Can I go to (5, 8) ?",
-                "Can I go to (19, 5) ?",
-                "Can I go to (18, 6) ?",
-                "Can I go to (18, 4) ?",
-                "Can I go to (18, 0) ?",
-                "Can I go to (10, 4) ?",
-                "Can I go to (11, 3) ?",
-                "Can I go to (5, 9) ?",
-                "Can I go to (6, 10) ?",
-                "Can I go to (5, 9) ?",
-                "Can I go to (18, 7) ?",
-                "Can I go to (18, 5) ?",
-                "Can I go to (11, 4) ?",
-                "Can I go to (10, 5) ?",
-                "Can I go to (7, 10) ?",
-                "Can I go to (6, 11) ?",
-                "Can I go to (6, 9) ?",
-                "Can I go to (19, 7) ?",
-                "Can I go to (18, 6) ?",
-                "Can I go to (9, 5) ?",
-                "Can I go to (10, 4) ?",
-                "Can I go to (6, 10) ?",
-                "Can I go to (5, 11) ?",
-                "Can I go to (6, 10) ?",
-                "Can I go to (18, 7) ?",
-                "Can I go to (19, 8) ?",
-                "Can I go to (10, 5) ?",
-                "Can I go to (8, 5) ?",
-                "Can I go to (9, 6) ?",
-                "Can I go to (6, 11) ?",
-                "Can I go to (9, 5) ?",
-                "Can I go to (9, 7) ?",
-                "Can I go to (9, 5) ?",
-                "Can I go to (10, 7) ?",
-                "Can I go to (9, 6) ?",
-                "Can I go to (11, 7) ?",
-                "Can I go to (9, 7) ?",
-                "Can I go to (10, 7) ?",
-                "Can I go to (11, 8) ?",
-                "Can I go to (12, 8) ?",
-                "Can I go to (11, 7) ?",
-                "Can I go to (11, 8) ?",
-                "Can I go to (12, 9) ?",
-                "Can I go to (13, 9) ?",
-                "Can I go to (12, 8) ?",
-                "Can I go to (12, 9) ?",
-                "Can I go to (13, 10) ?",
-                "Can I go to (13, 11) ?",
-                "Can I go to (13, 9) ?",
-                "Can I go to (14, 11) ?",
-                "Can I go to (13, 10) ?",
-                "Can I go to (13, 11) ?",
-                "Can I go to (14, 12) ?",
-                "Can I go to (14, 13) ?",
-                "Can I go to (14, 11) ?",
-                "Can I go to (15, 13) ?",
-                "Can I go to (14, 12) ?",
-                "Can I go to (14, 13) ?",
-                "Can I go to (15, 14) ?",
-                "Can I go to (15, 15) ?",
-                "Can I go to (15, 13) ?",
-                "Can I go to (15, 16) ?",
-                "Can I go to (15, 14) ?",
-                "Can I go to (16, 16) ?",
-                "Can I go to (15, 15) ?",
-                "Can I go to (17, 16) ?",
-                "Can I go to (15, 16) ?",
-                "Can I go to (16, 16) ?",
-                "Can I go to (17, 17) ?",
-                "Can I go to (18, 17) ?",
-                "Can I go to (17, 16) ?",
-                "Can I go to (19, 17) ?",
-                "Can I go to (17, 17) ?",
-                "Can I go to (18, 17) ?",
-                "Can I go to (19, 18) ?",
-                "Can I go to (19, 19) ?",
-                "Can I go to (19, 17) ?"
-            ]
+            ],
+            res: ["ans1", "ans2", "anw3"]
         },
         dfs: {
             path: [
@@ -1412,7 +1154,12 @@ const Maze = ({ speed, addMsg,
                     19
                 ]
             ]
-            , image: chroufa, color: 'green', msgs: ['aeae', 'ezazeaz']
+            , image: chroufa, color: 'green', msgs: [
+                "Can I go to (1, 0) ?",
+                "Can I go to (0, 1) ?",
+                "Can I go to (2, 0) ?",
+            ],
+            res: ["ans4", "ans5", "anw6"]
         },
         astar: {
             path: [
@@ -2181,7 +1928,12 @@ const Maze = ({ speed, addMsg,
                     19
                 ]
             ]
-            , image: slouma, color: 'red', msgs: ['aeae', 'ezazeaz']
+            , image: slouma, color: 'red', msgs: [
+                "Can I go to (1, 0) ?",
+                "Can I go to (0, 1) ?",
+                "Can I go to (2, 0) ?",
+            ],
+            res: ["ans7", "ans8", "anw9"]
         }
     };
     const [agentPositions, setAgentPositions] = useState({
@@ -2192,9 +1944,30 @@ const Maze = ({ speed, addMsg,
 
     const cellColorRef = useRef({});
 
+    const resetCellColors = () => {
+        // Reset the reference object storing the cell colors
+        cellColorRef.current = {};
+
+        // Go through each cell and reset the background color only if it's not an obstacle
+        matrix.forEach((row, rowIndex) => {
+            row.forEach((cell, colIndex) => {
+                const cellElement = document.querySelector(`.cell[data-row='${rowIndex}'][data-col='${colIndex}']`);
+                if (cell === 0) { // Only reset cells that are not obstacles
+                    cellElement.style.background = 'white';
+                }
+            });
+        });
+    };
+
+
     useEffect(() => {
         const intervalIds = [];
         if (gameStarted) {
+            addMsg({
+                agent: 'MASTER',
+                text: 'START !!!!!'
+            })
+
             Object.keys(agentPaths).forEach(agent => {
                 let step = 0;
                 const id = setInterval(() => {
@@ -2211,12 +1984,23 @@ const Maze = ({ speed, addMsg,
                 intervalIds.push(id);
             });
 
+        } else {
+            setAgentPositions(
+                {
+                    bfs: [0, 0],
+                    dfs: [0, 0],
+                    astar: [0, 0]
+                }
+            )
+
+            resetCellColors()
+            resetMsgs()
         }
 
         return () => {
             intervalIds.forEach(clearInterval);
         };
-    }, []);
+    }, [gameStarted]);
 
     const moveAgent = (agent, row, col) => {
         setAgentPositions(prevPositions => ({
@@ -2229,12 +2013,19 @@ const Maze = ({ speed, addMsg,
 
         // Log the agent's information and associated message
         console.log(`${agent.toUpperCase()} - Position: [${row}, ${col}]`);
-        if (step < agentPaths[agent].msgs.length) {
-            console.log(`Message: ${agentPaths[agent].msgs[step]}`);
-        } else {
-            console.log("No more messages.");
-        }
         console.log("-------");
+
+        if (step < agentPaths[agent].msgs.length) {
+            // Checking if the agent still has messages to display
+            addMsg({
+                agent: agent.toUpperCase(),
+                text: agentPaths[agent].msgs[step]
+            })
+            addMsg({
+                agent: 'MASTER',
+                text: agentPaths[agent].res[step]
+            })
+        }
     };
 
 
