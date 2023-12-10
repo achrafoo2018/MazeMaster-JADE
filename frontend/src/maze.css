@@ -1,9 +1,14 @@
 .agent-image {
-  width: 30px;  /* Adjust size as needed */
-  height: 30px; /* Adjust size as needed */
-  border-radius: 50%; /* Makes the image round */
-  position: absolute; /* Positioning to place images over the grid */
-  transition: top 1s, left 1s; /* Smooth transition for movement */
+  width: 30px;
+  /* Adjust size as needed */
+  height: 30px;
+  /* Adjust size as needed */
+  border-radius: 50%;
+  /* Makes the image round */
+  position: absolute;
+  /* Positioning to place images over the grid */
+  transition: top 1s, left 1s;
+  /* Smooth transition for movement */
 }
 
 .maze-container {
@@ -17,11 +22,16 @@
 }
 
 .cell {
-  width: 60px;  /* Increase the cell size from 40px to 60px */
-  height: 60px; /* Increase the cell size from 40px to 60px */
+  /* width: 80px; */
+  /* Increase the cell size from 40px to 60px */
+  /* height: 80px; */
+  /* Increase the cell size from 40px to 60px */
+
   border: 1px solid black;
-  transition: background-color 0.5s; /* Smooth transition for color change */
+  transition: background-color 0.5s;
+  /* Smooth transition for color change */
 }
+
 .cell.obstacle {
   background-color: black;
 }
