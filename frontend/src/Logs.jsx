@@ -15,12 +15,11 @@ function Logs({ msgs }) {
 
     const displayMsg = (msg) => {
         return (
-            <div className='flex flex-row items-center'>
-                <img src={imgs[msg.agent]} className=' mr-2 logs-imgs' style={{ width: '30px', height: '30px' }} />
+            <div className='flex flex-row items-center fade-in'>
+                <img src={imgs[msg.agent]} className='mr-2 logs-imgs' style={{ width: '30px', height: '30px' }} />
                 <p className='m-0'>{msg.text}</p>
             </div>
-        )
-
+        );
     }
 
     const displayMsgs = () => {
