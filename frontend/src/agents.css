@@ -1,0 +1,51 @@
+.agent-container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.agent-image {
+    /* width: 40px;  */
+    /* Adjusted size for better fit */
+    /* height: 40px; */
+    /* Adjusted size for better fit */
+    border-radius: 50%;
+    position: absolute;
+    transition: top 0.5s, left 0.5s;
+    /* Smooth transition for movement */
+    transform: translate(-50%, -50%);
+    /* Centering the image */
+}
+
+
+.tooltip {
+    position: absolute;
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    white-space: nowrap;
+    z-index: 1;
+}
+
+.tooltip-right {
+    left: 35px;
+    /* Adjust based on image size */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.tooltip-left {
+    right: 35px;
+    /* Adjust based on image size */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.tooltip-top {
+    bottom: 35px;
+    /* Adjust based on image size */
+    left: 50%;
+    transform: translateX(-50%);
+}
