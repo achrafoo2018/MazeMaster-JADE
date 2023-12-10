@@ -9,15 +9,18 @@ import { castMatrix, formatAgentsData } from './utils'
 function Game() {
   const [msgs, setMsgs] = useState([]);
 
+  const [speed, setSpeed] = useState(1000);
   const addMsg = (msg) => {
-    setMsgs((msgs) => [msg, ...msgs]);
+    setTimeout(() => {
+      setMsgs((msgs) => [msg, ...msgs]);
+    }, speed); // Adjust the delay as needed (500 ms in this example)
   };
 
   const resetMsgs = () => {
     setMsgs([]);
   };
 
-  const [speed, setSpeed] = useState(1000);
+ 
   const [gameStarted, setGameStarted] = useState(false);
   const [matrix, setMatrix] = useState([]);
 

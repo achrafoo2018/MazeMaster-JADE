@@ -43,6 +43,7 @@ const Actions = ({
   const shuffle = async () => {
     try {
       setIsLoading(true); // Start loading
+      setGameStarted(false);
       const maze = await generateMaze();
       setMatrix(castMatrix(maze));
 
