@@ -30,6 +30,10 @@ const Maze = ({ speed, addMsg,
                 if (cell === 0) { // Only reset cells that are not obstacles
                     cellElement.style.background = 'white';
                 }
+
+                if (cell === 1) { // Only reset cells that are not obstacles
+                    cellElement.style.background = 'black';
+                }
                 
             });
         });
@@ -92,15 +96,15 @@ const Maze = ({ speed, addMsg,
         console.log(`${agent.toUpperCase()} - Position: [${row}, ${col}]`);
         console.log("-------");
 
-        if (step < agentPaths[agent].messages.length) {
-            // Checking if the agent still has messages to display
+        if (step < agentPaths[agent].msgs.length) {
+            // Checking if the agent still has msgs to display
             addMsg({
                 agent: agent.toUpperCase(),
-                text: agentPaths[agent].messages[step]
+                text: agentPaths[agent].msgs[step]
             })
             addMsg({
                 agent: 'MASTER',
-                text: agentPaths[agent].answers[step]
+                text: agentPaths[agent].res[step]
             })
         }
     };

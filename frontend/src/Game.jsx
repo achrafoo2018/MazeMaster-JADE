@@ -4,6 +4,7 @@ import Logs from "./Logs";
 import Actions from "./Actions";
 import { getMaze, runAgents } from "./services/gameServices";
 import { ProgressSpinner } from "primereact/progressspinner";
+import { castMatrix, formatAgentsData } from './utils'
 
 function Game() {
   const [msgs, setMsgs] = useState([]);
@@ -30,17 +31,10 @@ function Game() {
       try {
         setIsLoading(true); // Start loading
         const maze = await getMaze();
-        // cast the matrix to int
-        maze.forEach((row, rowIndex) => {
-          row.forEach((cell, colIndex) => {
-            maze[rowIndex][colIndex] = parseInt(cell);
-          });
-        });
-        setMatrix(maze);
+        setMatrix(castMatrix(maze));
 
         const paths = await runAgents();
-        setAgentPaths(paths);
-
+        setAgentPaths(formatAgentsData(paths));
         setIsLoading(false); // Data fetched, stop loading
       } catch (error) {
         console.error(error);
@@ -50,16 +44,8 @@ function Game() {
     }
     fetchData();
   }, []);
-  if (isLoading) {
-    return (
-      <div
-        className="flex justify-center items-center"
-        style={{ height: "100vh" }}
-      >
-        <ProgressSpinner />
-      </div>
-    );
-  }
+
+
 
   console.log("Matrix from backend");
   console.log(matrix);
@@ -70,15 +56,23 @@ function Game() {
     <>
       <div className="grid p-6">
         <div className="col">
-          <Maze
-            addMsg={addMsg}
-            speed={speed}
-            gameStarted={gameStarted}
-            setGameStarted={setGameStarted}
-            resetMsgs={resetMsgs}
-            matrix={matrix}
-            agentPaths={agentPaths}
-          />
+          {isLoading ? (
+            <div
+              className="flex justify-center items-center"
+              style={{ height: "100vh" }}
+            >
+              <ProgressSpinner />
+            </div>) : (<Maze
+              addMsg={addMsg}
+              speed={speed}
+              gameStarted={gameStarted}
+              setGameStarted={setGameStarted}
+              resetMsgs={resetMsgs}
+              matrix={matrix}
+              agentPaths={agentPaths}
+            />)}
+        
+
         </div>
         <div className="col">
           <Actions
@@ -87,6 +81,7 @@ function Game() {
             setGameStarted={setGameStarted}
             setMatrix={setMatrix}
             setAgentPaths={setAgentPaths}
+            setIsLoading={setIsLoading}
           />
           <div className="mb-8" />
         </div>

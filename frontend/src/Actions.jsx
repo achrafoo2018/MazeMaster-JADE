@@ -3,9 +3,7 @@ import React from "react";
 import { Slider } from "primereact/slider";
 import { Button } from "primereact/button";
 import { generateMaze, runAgents } from "./services/gameServices";
-import hamma from "./assets/hamma.jpg";
-import chroufa from "./assets/chroufa.jpg";
-import slouma from "./assets/slouma.jpg";
+import { castMatrix, formatAgentsData } from './utils'
 
 const Actions = ({
   speed,
@@ -13,63 +11,50 @@ const Actions = ({
   setGameStarted,
   setMatrix,
   setAgentPaths,
+  setIsLoading
 }) => {
-  const handleMatrix = async () => {
+
+  // const handleMatrix = async () => {
+  //   try {
+  //     const maze = await generateMaze();
+  //     setMatrix(castMatrix(maze));
+  //     console.log("Maze from backend")
+  //     console.log(maze)
+
+  //   } catch (error) {
+  //     console.error(error);
+  //     alert("Error please refresh and try again");
+  //   }
+  // };
+
+  // const handleAgents = async () => {
+  //   try {
+  //     const agentsTraversal = await runAgents();
+  //     console.log("Agents from backend");
+  //     console.log(agentsTraversal);
+
+  //     setAgentPaths(formatAgentsData(agentsTraversal));
+  //   } catch (error) {
+  //     console.error(error);
+  //     alert("Error please refresh and try again");
+  //   }
+  // };
+
+  const shuffle = async () => {
     try {
+      setIsLoading(true); // Start loading
       const maze = await generateMaze();
-      maze.forEach((row, rowIndex) => {
-        row.forEach((cell, colIndex) => {
-          maze[rowIndex][colIndex] = parseInt(cell);
-        });
-      });
-      console.log("Maze from backend")
-      console.log(maze)
+      setMatrix(castMatrix(maze));
 
-      setMatrix(maze);
+      const paths = await runAgents();
+      setAgentPaths(formatAgentsData(paths));
+      setIsLoading(false); // Data fetched, stop loading
     } catch (error) {
       console.error(error);
       alert("Error please refresh and try again");
+      setIsLoading(false); // Stop loading in case of error
     }
-  };
-
-  const handleAgents = async () => {
-    try {
-      const agentsTraversal = await runAgents();
-      console.log("Agents from backend");
-      console.log(agentsTraversal);
-
-      // TODO:
-      // ya chroufa enti 3andek bfs, dfs and astar data
-      // el function hedi bch tjib el parcours bta3 el agents ou t7otou fel state bta3 el parent component
-      // el component maze bch ifi9 bel changes ou wa9teli truni run bch iet7arkou selon new data
-      setAgentPaths({
-        bfs: {
-          path: [], // el path bta3 el bfs fel response bte3ek
-          image: hamma,
-          color: "blue",
-          msgs: [], // el mesgs bta3 el bfs fel response bte3ek
-          res: [], // el messages bta3 el agent master coodinater lel aget bfs
-        },
-        dfs: {
-          path: [], // same
-          image: chroufa,
-          color: "green",
-          msgs: [], // same,
-          res: [], // same
-        },
-        astar: {
-          path: [], // same
-          image: slouma,
-          color: "red",
-          msgs: [], // same,
-          res: [], // same
-        },
-      });
-    } catch (error) {
-      console.error(error);
-      alert("Error please refresh and try again");
-    }
-  };
+  }
 
   return (
     <>
@@ -104,8 +89,7 @@ const Actions = ({
             </Button>
             <Button
               onClick={() => {
-                handleMatrix();
-                // handleAgents() // na7i el comment bch te5dem
+                shuffle()
               }}
               icon="pi pi-refresh"
               size="large"
