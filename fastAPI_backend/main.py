@@ -4,11 +4,28 @@ import os
 import asyncio
 from multiprocessing import Process, Queue
 import time
+from maze_generator import MazeGenerator
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
 # Construct the absolute file path
 file_path = os.path.abspath("maze.csv")
+
+# Configuring CORSMiddleware
+origins = [
+    "http://localhost:3000",
+    "localhost:3000"
+    "*"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 
 @app.post("/run-bfs-agent/")
 async def run_bfs_agent():
@@ -147,6 +164,17 @@ async def run_astar_agent():
         return {"error": str(e)}
     
 
+@app.get('/maze')
+async def get_maze():
+    N = 20
+    M = 20
+    P0 = (0, 0)
+    P1 = (N-1, M-1)
+    gen = MazeGenerator()
+    maze = gen.random_maze_generator(N, M, P0, P1)
+	# gen.generate_and_save_maze(N, M, P0, P1, 'maze.csv')
+    return maze
+
 def agent_runner(agent_function, queue):
     # Run the agent function and put the result in the queue
     result = asyncio.run(agent_function())
@@ -171,7 +199,7 @@ def format_output(output, coordinator_output, agent_name):
     }
 
 
-@app.post('/run-all-agents')
+@app.get('/run-all-agents')
 async def run_all_agents():
     try:
         # Create queues for each agent
