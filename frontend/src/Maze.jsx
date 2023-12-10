@@ -7,7 +7,7 @@ import './maze.css';
 const Maze = ({ speed, addMsg,
     gameStarted,
     resetMsgs,
-    setGameStarted, matrix, agentPaths }) => {
+    setGameStarted, matrix, agentPaths, setIsFinished }) => {
     const WIDTH = 40;
     const HEIGHT = 40;
 
@@ -59,6 +59,8 @@ const Maze = ({ speed, addMsg,
                 intervalIds.push(id);
             });
 
+            setIsFinished(true);
+
         } else {
             setAgentPositions(
                 {
@@ -70,6 +72,7 @@ const Maze = ({ speed, addMsg,
 
             resetCellColors()
             resetMsgs()
+            setIsFinished(false);
         }
 
         return () => {
