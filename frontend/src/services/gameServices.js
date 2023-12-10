@@ -10,7 +10,12 @@ const api = axios.create({
 
 
 const getMaze = async () => {
-    const response = await api.get('/maze')
+    const response = await api.get('/get-maze')
+    return response.data
+}
+
+const generateMaze = async () => {
+    const response = await api.get('/generate-maze')
     return response.data
 }
 
@@ -19,4 +24,4 @@ const runAgents = async () => {
     return response.data
 }
 
-export { getMaze, runAgents }
+export { getMaze, runAgents, generateMaze }

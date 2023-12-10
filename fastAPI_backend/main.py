@@ -164,16 +164,22 @@ async def run_astar_agent():
         return {"error": str(e)}
     
 
-@app.get('/maze')
+@app.get('/get-maze')
 async def get_maze():
+    gen = MazeGenerator()
+	# gen.generate_and_save_maze(N, M, P0, P1, 'maze.csv')
+    return gen.get_maze('maze.csv')
+
+@app.get('/generate-maze')
+async def generate_maze():
     N = 20
     M = 20
     P0 = (0, 0)
     P1 = (N-1, M-1)
     gen = MazeGenerator()
-    maze = gen.random_maze_generator(N, M, P0, P1)
-	# gen.generate_and_save_maze(N, M, P0, P1, 'maze.csv')
-    return maze
+    gen.generate_and_save_maze(N, M, P0, P1, 'maze.csv')
+    return gen.get_maze('maze.csv')
+
 
 def agent_runner(agent_function, queue):
     # Run the agent function and put the result in the queue

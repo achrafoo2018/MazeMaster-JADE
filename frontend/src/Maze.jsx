@@ -92,15 +92,15 @@ const Maze = ({ speed, addMsg,
         console.log(`${agent.toUpperCase()} - Position: [${row}, ${col}]`);
         console.log("-------");
 
-        if (step < agentPaths[agent].msgs.length) {
+        if (step < agentPaths[agent].messages.length) {
             // Checking if the agent still has messages to display
             addMsg({
                 agent: agent.toUpperCase(),
-                text: agentPaths[agent].msgs[step]
+                text: agentPaths[agent].messages[step]
             })
             addMsg({
                 agent: 'MASTER',
-                text: agentPaths[agent].res[step]
+                text: agentPaths[agent].answers[step]
             })
         }
     };

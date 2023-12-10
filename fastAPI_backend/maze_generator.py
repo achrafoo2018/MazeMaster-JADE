@@ -200,7 +200,19 @@ class MazeGenerator:
 			# Write each row of the maze to the file
 			for row in maze:
 				writer.writerow(row)
+	
+	def get_maze(self, filename):
+		# Open the CSV file
+		with open(filename, newline='') as file:
+			reader = csv.reader(file)
 
+			# Read each row of the maze
+			maze = []
+			for row in reader:
+				maze.append(row)
+
+		# Return the maze
+		return maze
 
 # Driver code
 if __name__ == "__main__":
