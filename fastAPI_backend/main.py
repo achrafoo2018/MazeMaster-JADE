@@ -214,100 +214,100 @@ def format_output(output, coordinator_output, agent_name):
 @app.get("/run-all-agents")
 async def run_all_agents():
     try:
-        # # Create queues for each agent
-        # bfs_queue = Queue()
-        # dfs_queue = Queue()
-        # astar_queue = Queue()
+        # Create queues for each agent
+        bfs_queue = Queue()
+        dfs_queue = Queue()
+        astar_queue = Queue()
 
-        # # Create and start processes for BFS, DFS, and A* agents
-        # bfs_process = Process(target=agent_runner, args=(run_bfs_agent, bfs_queue))
-        # dfs_process = Process(target=agent_runner, args=(run_dfs_agent, dfs_queue))
-        # astar_process = Process(target=agent_runner, args=(run_astar_agent, astar_queue))
+        # Create and start processes for BFS, DFS, and A* agents
+        bfs_process = Process(target=agent_runner, args=(run_bfs_agent, bfs_queue))
+        dfs_process = Process(target=agent_runner, args=(run_dfs_agent, dfs_queue))
+        astar_process = Process(target=agent_runner, args=(run_astar_agent, astar_queue))
 
-        # bfs_process.start()
-        # dfs_process.start()
-        # astar_process.start()
+        bfs_process.start()
+        dfs_process.start()
+        astar_process.start()
 
-        # # Wait a moment to ensure the other agents are operational
-        # time.sleep(1)  # Adjust this delay as needed
+        # Wait a moment to ensure the other agents are operational
+        time.sleep(1)  # Adjust this delay as needed
 
-        # # Start the coordinator agent
-        # coordinator_process = await run_coordinator_agent()
+        # Start the coordinator agent
+        coordinator_process = await run_coordinator_agent()
 
-        # # Wait for all processes to complete
-        # bfs_process.join()
-        # dfs_process.join()
-        # astar_process.join()
+        # Wait for all processes to complete
+        bfs_process.join()
+        dfs_process.join()
+        astar_process.join()
 
-        # dfs_output = dfs_queue.get()
-        # bfs_output = bfs_queue.get()
-        # astar_output = astar_queue.get()
-        # coordinator_output = coordinator_process
+        dfs_output = dfs_queue.get()
+        bfs_output = bfs_queue.get()
+        astar_output = astar_queue.get()
+        coordinator_output = coordinator_process
 
-        # # Collect results from queues
-        # results = {
-        #     "bfs": format_output(bfs_output, coordinator_output, "BFSAgent"),
-        #     "dfs": format_output(dfs_output, coordinator_output, "DFSAgent"),
-        #     "astar": format_output(astar_output, coordinator_output, "AStarAgent"),
-        # }
-
-        # return results
-        return {
-            "bfs": {
-                "messages": [
-                    "Can I go to (1, 0) ?",
-                    "Can I go to (0, 1) ?",
-                    "Can I go to (2, 0) ?",
-                ],
-                "path": [
-                    [0, 0],
-                    [1, 0],
-                    [2, 0],
-                ],
-                "answers": [
-                    "True",
-                    "True",
-                    "True",
-                ],
-            },
-            "dfs": {
-                "messages": [
-                    "Can I go to (1, 0) ?",
-                    "Can I go to (2, 0) ?",
-                    "Can I go to (3, 0) ?",
-                ],
-                "path": [
-                    [0, 0],
-                    [1, 0],
-                    [2, 0],
-                ],
-                "answers": [
-                    "True",
-                    "True",
-                    "True",
-                ],
-            },
-            "astar": {
-                "messages": [
-                    "Can I go to (1, 0) ?",
-                    "Can I go to (0, 1) ?",
-                    "Can I go to (2, 0) ?",
-                ],
-                "path": [
-                    [0, 0],
-                    [1, 0],
-                    [2, 0],
-                ],
-                "answers": [
-                    "True",
-                    "True",
-                    "True",
-                ],
-            },
-            "coordinator": {
-                "output": "Messages;Start !;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;"
-            },
+        # Collect results from queues
+        results = {
+            "bfs": format_output(bfs_output, coordinator_output, "BFSAgent"),
+            "dfs": format_output(dfs_output, coordinator_output, "DFSAgent"),
+            "astar": format_output(astar_output, coordinator_output, "AStarAgent"),
         }
+
+        return results
+        # return {
+        #     "bfs": {
+        #         "messages": [
+        #             "Can I go to (1, 0) ?",
+        #             "Can I go to (0, 1) ?",
+        #             "Can I go to (2, 0) ?",
+        #         ],
+        #         "path": [
+        #             [0, 0],
+        #             [1, 0],
+        #             [2, 0],
+        #         ],
+        #         "answers": [
+        #             "True",
+        #             "True",
+        #             "True",
+        #         ],
+        #     },
+        #     "dfs": {
+        #         "messages": [
+        #             "Can I go to (1, 0) ?",
+        #             "Can I go to (2, 0) ?",
+        #             "Can I go to (3, 0) ?",
+        #         ],
+        #         "path": [
+        #             [0, 0],
+        #             [1, 0],
+        #             [2, 0],
+        #         ],
+        #         "answers": [
+        #             "True",
+        #             "True",
+        #             "True",
+        #         ],
+        #     },
+        #     "astar": {
+        #         "messages": [
+        #             "Can I go to (1, 0) ?",
+        #             "Can I go to (0, 1) ?",
+        #             "Can I go to (2, 0) ?",
+        #         ],
+        #         "path": [
+        #             [0, 0],
+        #             [1, 0],
+        #             [2, 0],
+        #         ],
+        #         "answers": [
+        #             "True",
+        #             "True",
+        #             "True",
+        #         ],
+        #     },
+        #     "coordinator": {
+        #         "output": "Messages;Start !;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;"
+        #     },
+        # }
 
     except Exception as e:
         return {"error": str(e)}
