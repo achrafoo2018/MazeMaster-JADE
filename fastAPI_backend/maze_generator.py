@@ -204,10 +204,10 @@ class MazeGenerator:
 
 # Driver code
 if __name__ == "__main__":
-	N = 8
-	M = 8
+	N = 20
+	M = 20
 	P0 = (0, 0)
-	P1 = (7, 7)
+	P1 = (N-1, M-1)
 	gen = MazeGenerator()
 	gen.generate_and_save_maze(N, M, P0, P1, 'maze.csv')
 		
