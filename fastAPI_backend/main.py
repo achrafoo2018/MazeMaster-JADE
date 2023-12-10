@@ -252,62 +252,6 @@ async def run_all_agents():
         }
 
         return results
-        # return {
-        #     "bfs": {
-        #         "messages": [
-        #             "Can I go to (1, 0) ?",
-        #             "Can I go to (0, 1) ?",
-        #             "Can I go to (2, 0) ?",
-        #         ],
-        #         "path": [
-        #             [0, 0],
-        #             [1, 0],
-        #             [2, 0],
-        #         ],
-        #         "answers": [
-        #             "True",
-        #             "True",
-        #             "True",
-        #         ],
-        #     },
-        #     "dfs": {
-        #         "messages": [
-        #             "Can I go to (1, 0) ?",
-        #             "Can I go to (2, 0) ?",
-        #             "Can I go to (3, 0) ?",
-        #         ],
-        #         "path": [
-        #             [0, 0],
-        #             [1, 0],
-        #             [2, 0],
-        #         ],
-        #         "answers": [
-        #             "True",
-        #             "True",
-        #             "True",
-        #         ],
-        #     },
-        #     "astar": {
-        #         "messages": [
-        #             "Can I go to (1, 0) ?",
-        #             "Can I go to (0, 1) ?",
-        #             "Can I go to (2, 0) ?",
-        #         ],
-        #         "path": [
-        #             [0, 0],
-        #             [1, 0],
-        #             [2, 0],
-        #         ],
-        #         "answers": [
-        #             "True",
-        #             "True",
-        #             "True",
-        #         ],
-        #     },
-        #     "coordinator": {
-        #         "output": "Messages;Start !;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Don't go;Don't go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;Go;"
-        #     },
-        # }
 
     except Exception as e:
         return {"error": str(e)}

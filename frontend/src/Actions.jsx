@@ -95,6 +95,7 @@ const Actions = ({
               icon="pi pi-refresh"
               size="large"
               className="p-2"
+              severity="secondary"
             >
               <span className="ml-2">Shuffle</span>
             </Button>

@@ -4,7 +4,7 @@ import Logs from "./Logs";
 import Actions from "./Actions";
 import { getMaze, runAgents } from "./services/gameServices";
 import { ProgressSpinner } from "primereact/progressspinner";
-import { castMatrix, formatAgentsData } from './utils'
+import { castMatrix, formatAgentsData } from "./utils";
 
 function Game() {
   const [msgs, setMsgs] = useState([]);
@@ -20,7 +20,6 @@ function Game() {
     setMsgs([]);
   };
 
- 
   const [gameStarted, setGameStarted] = useState(false);
   const [matrix, setMatrix] = useState([]);
 
@@ -46,9 +45,11 @@ function Game() {
       }
     }
     fetchData();
+    
+    return () => {
+      // cleanup
+    };
   }, []);
-
-
 
   console.log("Matrix from backend");
   console.log(matrix);
@@ -65,7 +66,9 @@ function Game() {
               style={{ height: "100vh" }}
             >
               <ProgressSpinner />
-            </div>) : (<Maze
+            </div>
+          ) : (
+            <Maze
               addMsg={addMsg}
               speed={speed}
               gameStarted={gameStarted}
@@ -73,9 +76,8 @@ function Game() {
               resetMsgs={resetMsgs}
               matrix={matrix}
               agentPaths={agentPaths}
-            />)}
-        
-
+            />
+          )}
         </div>
         <div className="col">
           <Actions
