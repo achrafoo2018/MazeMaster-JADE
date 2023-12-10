@@ -28,23 +28,16 @@ public class AStarAgent extends Agent {
         // Use the filePath to initialize the MazeProvider
         MazeProvider provider = MazeProvider.getInstance(filePath);
         maze = provider.getMaze();
-        startPoint = new Point(0, 1);
-        endPoint = new Point(provider.getDimension()-1, provider.getDimension()-2);
+        startPoint = new Point(0, 0);
+        endPoint = new Point(provider.getDimension()-1, provider.getDimension()-1);
 
         addBehaviour(new CyclicBehaviour(this) {
             public void action() {
-                ACLMessage msg = receive();
+                ACLMessage msg = blockingReceive();
                 if (msg != null && "Start".equals(msg.getContent())) {
                     removeBehaviour(this); // Remove this waiting behavior
                     addBehaviour(new AStarBehaviour()); // Add main behavior
-                } else {
-                    block();
                 }
-            }
-        });
-        addBehaviour(new CyclicBehaviour(this) {
-            public void action() {
-                receiveMessagesAndUpdateMaze();
             }
         });
     }
@@ -52,25 +45,6 @@ public class AStarAgent extends Agent {
     @Override
     protected void takeDown() {
         exit(0);
-    }
-
-    // Method to send dead-end point information
-    private void sendDeadEndPoint(Point deadEndPoint) {
-        ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-        msg.setContent("DeadEndPoint: " + deadEndPoint.x + "," + deadEndPoint.y);
-        msg.addReceiver(new AID("BFSAgent", AID.ISLOCALNAME));
-        msg.addReceiver(new AID("AStarAgent", AID.ISLOCALNAME));
-        send(msg);
-    }
-
-    private void receiveMessagesAndUpdateMaze() {
-        ACLMessage msg = receive();
-        if (msg != null && msg.getContent().startsWith("DeadEndPoint:")) {
-            String[] parts = msg.getContent().split(":")[1].split(",");
-            int x = Integer.parseInt(parts[0].trim());
-            int y = Integer.parseInt(parts[1].trim());
-            maze[x][y] = 'X'; // Marking the dead end point
-        }
     }
 
     private class AStarBehaviour extends OneShotBehaviour {
@@ -87,6 +61,8 @@ public class AStarAgent extends Agent {
             gScore.put(startPoint, 0);
             cameFrom.put(startPoint, null);
 
+            System.out.print("Messages;");
+
             while (!openSet.isEmpty()) {
                 Point current = openSet.poll();
                 fullPath.add(current);  // Add the current point to the full path
@@ -99,14 +75,24 @@ public class AStarAgent extends Agent {
                 for (Point neighbor : getNeighbors(current)) {
                     int tentativeGScore = gScore.getOrDefault(current, Integer.MAX_VALUE) + 1;
                     if (tentativeGScore < gScore.getOrDefault(neighbor, Integer.MAX_VALUE)) {
-                        cameFrom.put(neighbor, current);
-                        gScore.put(neighbor, tentativeGScore);
-                        if (!openSet.contains(neighbor)) {
-                            openSet.add(neighbor);
+                        ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
+                        msg.setContent(neighbor.x + "," + neighbor.y);
+                        msg.addReceiver(new AID("CoordinatorAgent", AID.ISLOCALNAME));
+                        send(msg);
+                        System.out.print(neighbor);
+                        System.out.print(";");
+                        msg = blockingReceive();
+                        if(msg.getContent().equals("1")) {
+                            cameFrom.put(neighbor, current);
+                            gScore.put(neighbor, tentativeGScore);
+                            if (!openSet.contains(neighbor)) {
+                                openSet.add(neighbor);
+                            }
                         }
                     }
                 }
             }
+            System.out.println();
 
             if (pathFound) {
                 System.out.print("1;"); // path found
@@ -117,6 +103,11 @@ public class AStarAgent extends Agent {
             } else {
                 System.out.print("0;"); // path not found
             }
+            System.out.println();
+            ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
+            msg.addReceiver(new AID("CoordinatorAgent", AID.ISLOCALNAME));
+            msg.setContent("Done");
+            send(msg);
             myAgent.doDelete();
         }
 

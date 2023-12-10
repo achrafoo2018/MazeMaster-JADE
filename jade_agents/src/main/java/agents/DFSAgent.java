@@ -32,24 +32,15 @@ public class DFSAgent extends Agent {
         // Use the filePath to initialize the MazeProvider
         MazeProvider provider = MazeProvider.getInstance(filePath);
         maze = provider.getMaze();
-        startPoint = new Point(0, 1);
-        endPoint = new Point(provider.getDimension()-1, provider.getDimension()-2);
-        String myName = getLocalName();
-        System.out.println("My name is: " + myName);
+        startPoint = new Point(0, 0);
+        endPoint = new Point(provider.getDimension()-1, provider.getDimension()-1);
         addBehaviour(new CyclicBehaviour(this) {
             public void action() {
-                ACLMessage msg = receive();
+                ACLMessage msg = blockingReceive();
                 if (msg != null && "Start".equals(msg.getContent())) {
                     removeBehaviour(this); // Remove this waiting behavior
                     addBehaviour(new DFSBehaviour()); // Add main behavior
-                } else {
-                    block();
                 }
-            }
-        });
-        addBehaviour(new CyclicBehaviour(this) {
-            public void action() {
-                receiveMessagesAndUpdateMaze();
             }
         });
     }
@@ -61,29 +52,21 @@ public class DFSAgent extends Agent {
 
     // Method to send dead-end point information
     private void sendDeadEndPoint(Point deadEndPoint) {
-        System.out.println("Sending end point !! ");
         ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-        msg.addReceiver(new AID("BFSAgent", AID.ISLOCALNAME));
-        msg.addReceiver(new AID("AStarAgent", AID.ISLOCALNAME));
+        msg.addReceiver(new AID("CoordinatorAgent", AID.ISLOCALNAME));
         msg.setContent("DeadEndPoint: " + deadEndPoint.x + "," + deadEndPoint.y);
-
+        System.out.print("Dead end at point: ");
+        System.out.print(deadEndPoint);
+        System.out.print(';');
         send(msg);
-    }
-
-    private void receiveMessagesAndUpdateMaze() {
-        ACLMessage msg = receive();
-        if (msg != null && msg.getContent().startsWith("DeadEndPoint:")) {
-            String[] parts = msg.getContent().split(":")[1].split(",");
-            int x = Integer.parseInt(parts[0].trim());
-            int y = Integer.parseInt(parts[1].trim());
-            maze[x][y] = 'X'; // Marking the dead end point
-        }
     }
 
     private class DFSBehaviour extends OneShotBehaviour {
 
         public void action() {
+            System.out.print("Messages;");
             dfs(startPoint);
+            System.out.println();
             if (pathFound) {
                 System.out.print("1;"); // path found
                 for (Point p : path) {
@@ -93,6 +76,11 @@ public class DFSAgent extends Agent {
             } else {
                 System.out.println("0;"); // path not found
             }
+            System.out.println();
+            ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
+            msg.addReceiver(new AID("CoordinatorAgent", AID.ISLOCALNAME));
+            msg.setContent("Done");
+            send(msg);
             myAgent.doDelete();
         }
 
@@ -109,15 +97,25 @@ public class DFSAgent extends Agent {
             } else {
                 boolean deadEnd = true;
                 for (Point neighbor : getNeighbors(current)) {
-                    if (!visited.contains(neighbor)) {
-                        dfs(neighbor);
-                        if (pathFound) {
-                            deadEnd = false;
-                            break;
+                    ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
+                    msg.setContent(neighbor.x + "," + neighbor.y);
+                    msg.addReceiver(new AID("CoordinatorAgent", AID.ISLOCALNAME));
+                    send(msg);
+                    msg = blockingReceive();
+                    System.out.print(neighbor);
+                    System.out.print(";");
+                    if(msg.getContent().equals("1")) {
+                        if (!visited.contains(neighbor)) {
+                            dfs(neighbor);
+                            if (pathFound) {
+                                deadEnd = false;
+                                break;
+                            }
                         }
+                    }else{
+                        visited.add(neighbor);
                     }
                 }
-
                 if (deadEnd) {
                     sendDeadEndPoint(current); // Send message when backtracking from a dead end
                 }

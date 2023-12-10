@@ -63,7 +63,7 @@ public class MazeProvider {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < this.dimension; i++) {
             for (int j = 0; j < this.dimension; j++) {
-                sb.append(this.maze[i][j] == 1 ? "*" : " ");
+                sb.append(this.maze[i][j] == 1 ? "*" : this.maze[i][j] == 2 ? "X" : " ");
                 sb.append("  ");
             }
             sb.append("\n");
