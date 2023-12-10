@@ -1,10 +1,14 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect, useRef } from 'react';
 import hamma from './assets/hamma.jpg';
 import chroufa from './assets/chroufa.jpg';
 import slouma from './assets/slouma.jpg';
 import './maze.css';
 
-const Maze = () => {
+const Maze = ({ speed, addMsg,
+    gameStarted,
+    setGameStarted }) => {
     const WIDTH = 40;
     const HEIGHT = 40;
 
@@ -2190,22 +2194,24 @@ const Maze = () => {
 
     useEffect(() => {
         const intervalIds = [];
+        if (gameStarted) {
+            Object.keys(agentPaths).forEach(agent => {
+                let step = 0;
+                const id = setInterval(() => {
+                    if (step < agentPaths[agent].path.length) {
+                        const [row, col] = agentPaths[agent].path[step];
+                        updateCellColor(row, col, agentPaths[agent].color);
+                        moveAgent(agent, row, col);
+                        step++;
+                    } else {
+                        clearInterval(id);
+                    }
+                }, speed); // Adjust time as needed
 
-        Object.keys(agentPaths).forEach(agent => {
-            let step = 0;
-            const id = setInterval(() => {
-                if (step < agentPaths[agent].path.length) {
-                    const [row, col] = agentPaths[agent].path[step];
-                    updateCellColor(row, col, agentPaths[agent].color);
-                    moveAgent(agent, row, col);
-                    step++;
-                } else {
-                    clearInterval(id);
-                }
-            }, 1000); // Adjust time as needed
+                intervalIds.push(id);
+            });
 
-            intervalIds.push(id);
-        });
+        }
 
         return () => {
             intervalIds.forEach(clearInterval);
@@ -2309,7 +2315,7 @@ const Maze = () => {
                     src={agentPaths[agent].image}
                     alt={agent}
                     className="agent-image"
-                    style={{ ...style, width: WIDTH / 2, height: HEIGHT / 2 }} />
+                    style={{ ...style, width: WIDTH / 2, height: HEIGHT / 2, transition: `top ${speed}ms, left ${speed}ms` }} />
             );
         });
     };
