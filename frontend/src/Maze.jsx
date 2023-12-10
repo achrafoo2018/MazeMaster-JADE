@@ -7,7 +7,7 @@ import './maze.css';
 const Maze = ({ speed, addMsg,
     gameStarted,
     resetMsgs,
-    setGameStarted, matrix, agentPaths, setIsFinished }) => {
+    setGameStarted, matrix, agentPaths }) => {
     const WIDTH = 40;
     const HEIGHT = 40;
 
@@ -30,6 +30,7 @@ const Maze = ({ speed, addMsg,
                 if (cell === 0) { // Only reset cells that are not obstacles
                     cellElement.style.background = 'white';
                 }
+                
             });
         });
     };
@@ -58,8 +59,7 @@ const Maze = ({ speed, addMsg,
 
                 intervalIds.push(id);
             });
-
-            setIsFinished(true);
+            
 
         } else {
             setAgentPositions(
@@ -71,8 +71,7 @@ const Maze = ({ speed, addMsg,
             )
 
             resetCellColors()
-            resetMsgs()
-            setIsFinished(false);
+            resetMsgs()            
         }
 
         return () => {

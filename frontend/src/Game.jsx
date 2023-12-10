@@ -5,7 +5,6 @@ import Actions from './Actions'
 import hamma from './assets/hamma.jpg';
 import chroufa from './assets/chroufa.jpg';
 import slouma from './assets/slouma.jpg';
-import Notification from './Notification';
 
 function Game() {
     const [msgs, setMsgs] = useState([])
@@ -18,7 +17,6 @@ function Game() {
         setMsgs([])
     }
 
-    const [isFinished, setIsFinished] = useState(false); 
     const [speed, setSpeed] = useState(1000);
     const [gameStarted, setGameStarted] = useState(false);
     const [matrix, setMatrix] = useState([ // Static hard coded matrix as an initial value
@@ -1950,14 +1948,11 @@ function Game() {
         <>
             <div className='grid p-6'>
                 <div className="col">
-                    <Maze setIsFinished={setIsFinished} addMsg={addMsg} speed={speed} gameStarted={gameStarted} setGameStarted={setGameStarted} resetMsgs={resetMsgs} matrix={matrix} agentPaths={agentPaths} />
+                    <Maze addMsg={addMsg} speed={speed} gameStarted={gameStarted} setGameStarted={setGameStarted} resetMsgs={resetMsgs} matrix={matrix} agentPaths={agentPaths} />
                 </div>
                 <div className="col">
                     <Actions speed={speed} setSpeed={setSpeed} setGameStarted={setGameStarted} setMatrix={setMatrix} setAgentPaths={setAgentPaths}  />
                     <div className='mb-8' />
-                    {isFinished && (
-                        <Notification isFinished={isFinished} />
-                    )}
                 </div>
                 <div className="col">
                     <Logs msgs={msgs} />
