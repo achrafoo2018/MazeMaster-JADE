@@ -1,18 +1,45 @@
 import React from 'react'
 import { Panel } from 'primereact/panel';
+import hamma from './assets/hamma.jpg';
+import chroufa from './assets/chroufa.jpg';
+import slouma from './assets/slouma.jpg';
+import fanen from './assets/fanen.jpg';
 
-function Logs() {
-    return (
-        <Panel header="Chat room" >
-            <div className='h-full'>
-                <p className="m-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
+function Logs({ msgs }) {
+    const imgs = {
+        ASTAR: slouma,
+        DFS: chroufa,
+        BFS: hamma,
+        MASTER: fanen
+    }
+
+    const displayMsg = (msg) => {
+        return (
+            <div className='flex flex-row items-center'>
+                <img src={imgs[msg.agent]} className=' mr-2 logs-imgs' style={{ width: '30px', height: '30px' }} />
+                <p className='m-0'>{msg.text}</p>
             </div>
+        )
 
+    }
+
+    const displayMsgs = () => {
+        // eslint-disable-next-line react/prop-types
+        if (msgs.length === 0) { return (<p className='text-center'>No logs yet</p>); }
+        
+        // eslint-disable-next-line react/prop-types        
+        return msgs.map((msg, index) => {
+            return (
+                <div key={index} className='p-2'>
+                    {displayMsg(msg)}
+                </div>
+            )
+        })
+    }
+
+    return (
+        <Panel header="Chat room" style={{ height: "800px", overflowY: "scroll" }}>
+            {displayMsgs()}
         </Panel>
     )
 }
