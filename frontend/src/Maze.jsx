@@ -4,7 +4,7 @@ import chroufa from './assets/chroufa.jpg';
 import slouma from './assets/slouma.jpg';
 import './maze.css';
 
-const Maze = () => {
+const Maze = ({speed}) => {
     const WIDTH = 40;
     const HEIGHT = 40;
 
@@ -2202,7 +2202,7 @@ const Maze = () => {
                 } else {
                     clearInterval(id);
                 }
-            }, 1000); // Adjust time as needed
+            }, speed); // Adjust time as needed
 
             intervalIds.push(id);
         });
@@ -2309,7 +2309,7 @@ const Maze = () => {
                     src={agentPaths[agent].image}
                     alt={agent}
                     className="agent-image"
-                    style={{ ...style, width: WIDTH / 2, height: HEIGHT / 2 }} />
+                    style={{ ...style, width: WIDTH / 2, height: HEIGHT / 2, transition: `top ${speed}ms, left ${speed}ms` }} />
             );
         });
     };

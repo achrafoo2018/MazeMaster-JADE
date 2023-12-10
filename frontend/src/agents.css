@@ -12,7 +12,7 @@
     /* Adjusted size for better fit */
     border-radius: 50%;
     position: absolute;
-    transition: top 0.5s, left 0.5s;
+    /* transition: top 0.5s, left 0.5s; */
     /* Smooth transition for movement */
     transform: translate(-50%, -50%);
     /* Centering the image */
