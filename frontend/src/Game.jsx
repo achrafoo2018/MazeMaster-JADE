@@ -40,12 +40,12 @@ function Game() {
         setIsLoading(false); // Data fetched, stop loading
       } catch (error) {
         console.error(error);
-        alert("Error please refresh and try again");
+        // alert("Error please refresh and try again");
         setIsLoading(false); // Stop loading in case of error
       }
     }
     fetchData();
-    
+
     return () => {
       // cleanup
     };

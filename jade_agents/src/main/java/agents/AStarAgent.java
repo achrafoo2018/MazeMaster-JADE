@@ -96,7 +96,8 @@ public class AStarAgent extends Agent {
 
             if (pathFound) {
                 System.out.print("1;"); // path found
-                for (Point p : fullPath) {
+                List<Point> path = reconstructPath(cameFrom);
+                for (Point p : path) {
                     System.out.print(p);
                     System.out.print(";");
                 }

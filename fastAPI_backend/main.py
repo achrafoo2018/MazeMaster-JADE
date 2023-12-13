@@ -235,9 +235,17 @@ async def run_all_agents():
         coordinator_process = await run_coordinator_agent()
 
         # Wait for all processes to complete
-        bfs_process.join()
-        dfs_process.join()
-        astar_process.join()
+        bfs_process.join(timeout=5)
+        dfs_process.join(timeout=5)
+        astar_process.join(timeout=5)
+
+        # Check if the processes are still alive and terminate if necessary
+        if bfs_process.is_alive():
+            bfs_process.terminate()
+        if dfs_process.is_alive():
+            dfs_process.terminate()
+        if astar_process.is_alive():
+            astar_process.terminate()
 
         dfs_output = dfs_queue.get()
         bfs_output = bfs_queue.get()

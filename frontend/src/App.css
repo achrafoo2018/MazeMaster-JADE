@@ -20,3 +20,16 @@
     animation: fadeIn 1s ease-in-out;
   }
   
+  .notes-container {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .notes-content {
+    padding: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  
